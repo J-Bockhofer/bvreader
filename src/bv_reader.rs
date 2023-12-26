@@ -17,7 +17,6 @@ use bv_error::Error;
 /// 
 /// Combines Header, Marker and Data
 /// 
-/// bv_header, bv_marker, bv_data,
 ///  
 pub struct BVFile {
     pub bv_header: BVheader,

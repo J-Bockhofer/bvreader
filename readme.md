@@ -1,5 +1,7 @@
 # bvreader
 
+[Documentation](https://docs.rs/bvreader)
+
 This crate provides a basic reader for BrainVision Recorder Files `(.vhdr/.vmrk/.eeg)`
 
 `ONLY FOR HEADER VERSION 1.0`

@@ -1,10 +1,11 @@
 [package]
 name = "bvreader"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "Reader for the BrainVision data format"
+documentation = "https://docs.rs/bvreader"
 repository = "https://github.com/J-Bockhofer/bvreader"
-license-file = "LICENSE"
+license = "MIT"
 keywords = ["eeg", "BrainVision"]
 categories = ["science::neuroscience","parsing", "parser-implementations"]
 readme = "readme.md"
