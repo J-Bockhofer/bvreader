@@ -2,7 +2,11 @@
 name = "bvreader"
 version = "0.1.0"
 edition = "2021"
-
+repository = "https://github.com/J-Bockhofer/bvreader"
+license-file = "LICENSE"
+keywords = ["eeg", "BrainVision"]
+categories = ["science::neuroscience","parsing", "parser-implementations"]
+readme = "readme.md"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]

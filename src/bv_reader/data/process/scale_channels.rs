@@ -5,7 +5,7 @@ use crate::bv_reader::header::parser::parse_chan_info::ChannelInfo;
 
 use crate::bv_reader::bv_error::Error;
 
-pub fn scale_channels(data: &mut Vec<Vec<f32>>, info: Vec<ChannelInfo>) -> Result<(), Error> {
+pub fn scale_channels(data: &mut Vec<Vec<f32>>, info: &Vec<ChannelInfo>) -> Result<(), Error> {
     if data.len() != info.len() {return Err(Error::ChannelDataMismatch(data.len(), info.len()))}; // not the same amount of channels in data and info
     let chan_len = data[0].len();
 
@@ -38,7 +38,7 @@ mod tests {
         in_info.resolution = Some(0.5);
 
 
-        scale_channels(&mut in_data, vec![in_info.clone(), in_info]).unwrap();
+        scale_channels(&mut in_data, &vec![in_info.clone(), in_info]).unwrap();
 
         let expected: Vec<Vec<f32>> = vec![vec![
             55., 10., 55., 10.,

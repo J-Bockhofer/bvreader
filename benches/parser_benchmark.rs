@@ -23,7 +23,7 @@ pub fn criterion_benchmark(c: &mut Criterion) {
     group.significance_level(0.1).sample_size(10);
     group.bench_function("parse_binary_data", |b| b.iter(|| BVData::from_file(black_box("src/bv_reader/data/testfiles/01_data.eeg"),black_box(71), BinaryFormat::IEEE_FLOAT_32,DataOrientation::MULTIPLEXED)));
     group.bench_function("parse_full_data", |b| b.iter(|| BVFile::from_header(black_box("src/bv_reader/data/testfiles/01_header.vhdr"))));
-    group.bench_function("scale_channels", |b| b.iter(|| bvfile.bv_data.scale_channels(black_box(chaninfo.clone()))));
+    group.bench_function("scale_channels", |b| b.iter(|| bvfile.bv_data.scale_channels(black_box(&chaninfo))));
     group.finish();
 }
 

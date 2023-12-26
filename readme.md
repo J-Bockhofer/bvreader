@@ -13,16 +13,22 @@ In order to keep it simple all types (FLOAT32, INT32, INT16) convert to f32.
 
 ```rust
 
-    use crate::bvreader::bv_reader::BVFile;
+use crate::bvreader::bv_reader::BVFile;
 
-    let headerfile = "src/bv_reader/data/testfiles/01_header.vhdr";
-    let metafile = BVFile::from_header(headerfile).unwrap();
+let headerfile = "src/bv_reader/data/testfiles/01_header.vhdr";
+let metafile = BVFile::from_header(headerfile).unwrap();
 
-    // metafile.bv_header  contains the struct with header information
-    // metafile.bv_data    contains the data and some extra information
-    // metafile.bv_marker  contains the marker events
+// metafile.bv_header       contains the struct with header information
+// metafile.bv_data         contains the data and some extra information
+// metafile.bv_marker       contains the marker events
+
+// metafile.bv_data.data    contains the sample values in a vec of channels, that each contain a vec of sample values as f32.
+
+// scale data according to the resolution
+let _ = metafile.bv_data.scale_channels(&metafile.bv_header.channel_info).unwrap();
 
 ```
+
 ## Todos
 
 1. Decode Timecode in marker new segment

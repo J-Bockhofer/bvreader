@@ -53,7 +53,7 @@ impl BVData {
         })
     }
 
-    pub fn scale_channels(&mut self, channel_info: Vec<ChannelInfo>) -> Result<(), Error> {
+    pub fn scale_channels(&mut self, channel_info: &Vec<ChannelInfo>) -> Result<(), Error> {
         scale_channels(&mut self.data, channel_info)?;
         Ok(())
     }
