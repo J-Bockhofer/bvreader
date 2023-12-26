@@ -2,6 +2,7 @@
 name = "bvreader"
 version = "0.1.0"
 edition = "2021"
+description = "Reader for the BrainVision data format"
 repository = "https://github.com/J-Bockhofer/bvreader"
 license-file = "LICENSE"
 keywords = ["eeg", "BrainVision"]
