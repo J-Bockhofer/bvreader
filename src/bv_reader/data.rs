@@ -4,8 +4,7 @@ pub mod parser;
 use parser::{
     read_datfile::get_file_as_byte_vec,
     parse_bytestring::{parse_bytestring_to_f32, parse_bytestring_to_i16, parse_bytestring_to_i32},
-    parse_orientation::{parse_multiplexed_data, parse_vectorized_data},
-    normalize_channels::process_chanchangus,
+    parse_orientation::{parse_multiplexed_data, parse_vectorized_data}
 };
 
 pub mod process;

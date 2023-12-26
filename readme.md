@@ -13,7 +13,7 @@ In order to keep it simple all types (FLOAT32, INT32, INT16) convert to f32.
 
 ```rust
 
-    
+    use crate::bvreader::bv_reader::BVFile;
 
     let headerfile = "src/bv_reader/data/testfiles/01_header.vhdr";
     let metafile = BVFile::from_header(headerfile).unwrap();
