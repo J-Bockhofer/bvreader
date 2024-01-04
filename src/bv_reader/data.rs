@@ -28,13 +28,13 @@ pub struct BVData {
 }
 
 impl BVData {
-    pub fn from_file(datapath: &str, num_channels: usize, binary_format: BinaryFormat, orientation: DataOrientation) -> Result<Self, Error> {
+    pub fn from_file(datapath: &str, num_channels: usize, binary_format: BinaryFormat, orientation: DataOrientation, use_big_endian: bool) -> Result<Self, Error> {
         let bytestring = get_file_as_byte_vec(datapath)?;
 
         let raw_data = match binary_format {
-            BinaryFormat::IEEE_FLOAT_32 => {parse_bytestring_to_f32(bytestring)},
-            BinaryFormat::INT_32 => {parse_bytestring_to_i32(bytestring)},
-            BinaryFormat::INT_16 => {parse_bytestring_to_i16(bytestring)},
+            BinaryFormat::IEEE_FLOAT_32 => {parse_bytestring_to_f32(bytestring, use_big_endian)},
+            BinaryFormat::INT_32 => {parse_bytestring_to_i32(bytestring, use_big_endian)},
+            BinaryFormat::INT_16 => {parse_bytestring_to_i16(bytestring, use_big_endian)},
             BinaryFormat::Unknown => {return Err(Error::InvalidBinaryFormat);}
         };
         

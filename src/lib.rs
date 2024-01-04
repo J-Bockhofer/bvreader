@@ -1,3 +1,18 @@
+//! # bvreader
+//! 
+//! This crate provides a basic reader for BrainVision Recorder Files `(.vhdr/.vmrk/.eeg)`
+//!
+//! `ONLY FOR HEADER VERSION 1.0`
+//!
+//! Does not include full list of options but is extendable.
+//!
+//! In order to keep it simple all types (FLOAT32, INT32, INT16) convert to f32.
+//!
+//! Only implements processing for `Timedomain Data`.
+//!
+//! See the bv_reader module for usage instructions.
+//!
+//! 
 
 /// ## Usage
 /// ```

@@ -10,6 +10,7 @@ Does not include full list of options but is extendable.
 
 In order to keep it simple all types (FLOAT32, INT32, INT16) convert to f32.
 
+Only implements processing for `Timedomain Data`.
 
 ## Usage
 

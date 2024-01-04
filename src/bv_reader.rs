@@ -40,7 +40,7 @@ impl BVFile {
         let bv_marker = BVMarker::from_file(&marker_path)?;
 
         let data_path = format!("{}/{}",root_path.join("/"),&bv_header.data_file);
-        let bv_data = BVData::from_file(&data_path, bv_header.num_channels, bv_header.binary_format ,bv_header.data_orientation)?;
+        let bv_data = BVData::from_file(&data_path, bv_header.num_channels, bv_header.binary_format ,bv_header.data_orientation, bv_header.use_big_endian)?;
 
         Ok(BVFile{
             bv_header,

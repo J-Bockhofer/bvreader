@@ -2,7 +2,7 @@
 
 
 
-pub fn parse_bytestring_to_f32(bytestring: Vec<u8>) -> Vec<f32> {
+pub fn parse_bytestring_to_f32(bytestring: Vec<u8>, use_big_endian: bool) -> Vec<f32> {
 
     if bytestring.len() == 0 {return vec![]}
     const CHUNK_SIZE: usize = 4;
@@ -13,7 +13,7 @@ pub fn parse_bytestring_to_f32(bytestring: Vec<u8>) -> Vec<f32> {
 
         let new_head = byte_idx + CHUNK_SIZE;
         let chunk: &[u8] = &bytestring[byte_idx..new_head];
-        let num = f32::from_le_bytes(format_4byte_arr(chunk));
+        let num = if use_big_endian {f32::from_be_bytes(format_4byte_arr(chunk))} else {f32::from_le_bytes(format_4byte_arr(chunk))}; 
         result.push(num);
 
         byte_idx = new_head;
@@ -22,7 +22,7 @@ pub fn parse_bytestring_to_f32(bytestring: Vec<u8>) -> Vec<f32> {
     result
 }
 
-pub fn parse_bytestring_to_i32(bytestring: Vec<u8>) -> Vec<f32> {
+pub fn parse_bytestring_to_i32(bytestring: Vec<u8>, use_big_endian: bool) -> Vec<f32> {
 
     if bytestring.len() == 0 {return vec![]}
     const CHUNK_SIZE: usize = 4;
@@ -32,7 +32,7 @@ pub fn parse_bytestring_to_i32(bytestring: Vec<u8>) -> Vec<f32> {
     while byte_idx + CHUNK_SIZE - 1 <= bytestring.len() - 1 {
         let new_head = byte_idx + CHUNK_SIZE;
         let chunk: &[u8] = &bytestring[byte_idx..new_head];
-        let num = i32::from_le_bytes(format_4byte_arr(chunk));
+        let num = if use_big_endian {i32::from_be_bytes(format_4byte_arr(chunk))} else {i32::from_le_bytes(format_4byte_arr(chunk))};
         result.push(num as f32);
 
         byte_idx = new_head;
@@ -41,7 +41,7 @@ pub fn parse_bytestring_to_i32(bytestring: Vec<u8>) -> Vec<f32> {
     result
 }
 
-pub fn parse_bytestring_to_i16(bytestring: Vec<u8>) -> Vec<f32> {
+pub fn parse_bytestring_to_i16(bytestring: Vec<u8>, use_big_endian: bool) -> Vec<f32> {
 
     if bytestring.len() == 0 {return vec![]}
     const CHUNK_SIZE: usize = 2;
@@ -52,7 +52,7 @@ pub fn parse_bytestring_to_i16(bytestring: Vec<u8>) -> Vec<f32> {
 
         let new_head = byte_idx + CHUNK_SIZE;
         let chunk: &[u8] = &bytestring[byte_idx..new_head];
-        let num = i16::from_le_bytes(format_2byte_arr(chunk));
+        let num = if use_big_endian {i16::from_be_bytes(format_2byte_arr(chunk))} else {i16::from_le_bytes(format_2byte_arr(chunk))};
         result.push(num as f32);
 
         byte_idx = new_head;
@@ -76,28 +76,28 @@ mod tests {
 
     #[test]
     fn test_parse_bytestring_f32() {
-        let res = parse_bytestring_to_f32(vec![110, 80, 20, 30, 110, 80, 20, 30]);
+        let res = parse_bytestring_to_f32(vec![110, 80, 20, 30, 110, 80, 20, 30], false);
         let expected = vec![7.851687e-21, 7.851687e-21];
         assert_eq!(res, expected)
     }
 
     #[test]
     fn test_parse_bytestring_i32() {
-        let res= parse_bytestring_to_i32(vec![110, 80, 20, 30, 110, 80, 20, 30]);
+        let res= parse_bytestring_to_i32(vec![110, 80, 20, 30, 110, 80, 20, 30], false);
         let expected = vec![504647790., 504647790.];
         assert_eq!(res, expected)
     }
 
     #[test]
     fn test_parse_bytestring_i16() {
-        let res = parse_bytestring_to_i16(vec![110, 80, 20, 30, 110, 80, 20, 30]);
+        let res = parse_bytestring_to_i16(vec![110, 80, 20, 30, 110, 80, 20, 30], false);
         let expected = vec![20590., 7700., 20590., 7700.];
         assert_eq!(res, expected)
     }
 
     #[test]
     fn test_parse_bytestring_f32_empty() {
-        let res: Vec<f32> = parse_bytestring_to_f32(vec![]);
+        let res: Vec<f32> = parse_bytestring_to_f32(vec![], false);
          let expected: Vec<f32> = vec![];
         assert_eq!(res, expected) 
     }

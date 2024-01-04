@@ -5,7 +5,7 @@ use std::sync::OnceLock;
 pub enum HeaderEncoding {
     #[default]
     UTF8,
-    ASCII,
+    ANSI,
     Unknown,
 }
 
@@ -24,8 +24,8 @@ pub fn parse_header_encoding(textcontent: &str) -> HeaderEncoding {
         caps.get(1).map_or(HeaderEncoding::Unknown, |m| {
             if m.as_str() == "UTF-8" {
                 HeaderEncoding::UTF8
-            } else if m.as_str() == "ASCII" {
-                HeaderEncoding::ASCII
+            } else if m.as_str() == "ANSI" {
+                HeaderEncoding::ANSI
             } else {
                 HeaderEncoding::Unknown
             }

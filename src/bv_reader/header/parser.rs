@@ -13,4 +13,8 @@ pub mod parse_chan_info_full;
 pub mod parse_reference;
 pub mod parse_levels;
 
+// added options
+pub mod parse_datatype;
+pub mod parse_endian;
+
 //pub mod parse_value;

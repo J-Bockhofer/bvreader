@@ -34,6 +34,8 @@ use parser::{
     parse_levels::{parse_good_level, parse_bad_level},
 };
 
+use self::parser::parse_endian::parse_endian;
+
 
 
 #[derive(Default, Clone, Debug, PartialEq)]
@@ -53,6 +55,7 @@ pub struct BVheader {
 
     // Binary Format
     pub binary_format: BinaryFormat,
+    pub use_big_endian: bool,
 
     // Channel Info
     pub channel_info: Vec<ChannelInfo>, 
@@ -104,6 +107,7 @@ impl BVheader {
             num_channels: parse_numchans(&textcontent).unwrap_or_default(),
             sampling_interval: parse_sampling_interval(&textcontent).unwrap_or_default(),
             binary_format: parse_binaryformat(&textcontent),
+            use_big_endian: parse_endian(&textcontent),
             channel_info: parse_chan_info(&textcontent),
             recorder_version: parse_recorder_version(&textcontent).unwrap_or_default(),
             amp_channels: parse_amp_numchan(&textcontent).unwrap_or_default(),
