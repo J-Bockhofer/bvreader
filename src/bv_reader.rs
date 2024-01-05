@@ -8,16 +8,21 @@ pub mod bv_error;
 
 pub mod generic_parser;
 
+pub mod validator;
+
 use header::BVheader;
 use marker::BVMarker;
 use data::BVData;
 use bv_error::Error;
+
+use validator::{IsValid, validate_num_chan, parse_invalid_to_error};
 
 /// Main struct of the file reader
 /// 
 /// Combines Header, Marker and Data
 /// 
 ///  
+#[derive(Debug, PartialEq)]
 pub struct BVFile {
     pub bv_header: BVheader,
     pub bv_marker: BVMarker,
@@ -48,6 +53,21 @@ impl BVFile {
             bv_data,
         })
     }
+
+    /// Sequential validation of file parameters
+    /// 
+    /// Includes:
+    /// 
+    /// - number of channels
+    /// 
+    pub fn validate(self) -> Result<Self, Error> {
+
+        let valid = validate_num_chan(&self);
+        if valid != IsValid::True {return Err(parse_invalid_to_error(&valid));}
+        
+        Ok(self)
+    }
+
 }
 
 #[cfg(test)]
@@ -68,6 +88,15 @@ mod tests {
         let input = "";
         let output = BVFile::from_header(input);
         assert_eq!(output.is_err(), true);
+    }
+
+    #[test]
+    fn test_validate_valid() {
+        let input = "src/bv_reader/data/testfiles/01_header.vhdr";
+        let output = BVFile::from_header(input).unwrap().validate();
+        let expected: Result<BVFile, Error> = Ok(BVFile::from_header(input).unwrap());
+        //println!("{:?}", output);
+        assert_eq!(output, expected);
     }
 
 }

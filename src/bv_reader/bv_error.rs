@@ -29,4 +29,10 @@ pub enum Error {
     #[error("Malformed channel data. Expected sample length per channel: {0}. Found: {1}")]
     ChannelDataMalformed(usize, usize),
 
+    // Validation
+    #[error("{0}")]
+    ValidationError(String),
+    
+
+
 }

@@ -4,7 +4,7 @@ use std::sync::OnceLock;
 use crate::bv_reader::generic_parser::parse_generic_value;
 
 static AMP_NUMCHAN_REGEX: OnceLock<Regex> = OnceLock::new();
-/// Returns None if no version was found
+/// Returns None if no channel data was found
 pub fn parse_amp_numchan(textcontent: &str) -> Option<usize> {
 
     let re = AMP_NUMCHAN_REGEX.get_or_init(|| {

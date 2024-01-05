@@ -32,9 +32,12 @@ use parser::{
     //parse_chan_info_full::parse_chan_info_full,
     parse_reference::{parse_reference_label, parse_reference_phys_chan},
     parse_levels::{parse_good_level, parse_bad_level},
+    parse_endian::parse_endian
 };
 
-use self::parser::parse_endian::parse_endian;
+//pub mod validator;
+
+
 
 
 

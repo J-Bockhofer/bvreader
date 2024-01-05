@@ -39,5 +39,3 @@ let _ = metafile.bv_data.scale_channels(&metafile.bv_header.channel_info).unwrap
 2. .ini based parser instead of regex?
 
 3. more options from [specification](https://www.dpg.unipd.it/sites/dpg.unipd.it/files/Brainvision_Recorder.pdf)
-
-4. Validators for Header and Data not implemented.
