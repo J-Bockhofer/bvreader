@@ -24,7 +24,7 @@ use crate::bv_reader::bv_error::Error;
 #[derive(Debug, PartialEq)]
 pub struct BVData {
     pub data_path: String,
-    pub data: Vec<Vec<f32>>, // 2D-Vector of channels
+    pub data: Vec<Vec<f64>>, // 2D-Vector of channels
     pub num_chan: usize,
 }
 

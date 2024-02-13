@@ -1,14 +1,14 @@
 
 
-pub fn parse_multiplexed_data(multiplexed_data: Vec<f32>, num_chan: usize) -> Vec<Vec<f32>> {
+pub fn parse_multiplexed_data(multiplexed_data: Vec<f64>, num_chan: usize) -> Vec<Vec<f64>> {
     
-    let mut channel_data: Vec<Vec<f32>> = Vec::with_capacity(num_chan); 
+    let mut channel_data: Vec<Vec<f64>> = Vec::with_capacity(num_chan); 
 
     let data_len = multiplexed_data.len();
     let chan_len = data_len / num_chan;
 
     for _ in 0..num_chan {
-        let onechannel: Vec<f32> = Vec::with_capacity(chan_len);
+        let onechannel: Vec<f64> = Vec::with_capacity(chan_len);
         channel_data.push(onechannel);
     }
 
@@ -23,15 +23,15 @@ pub fn parse_multiplexed_data(multiplexed_data: Vec<f32>, num_chan: usize) -> Ve
 }
 
 
-pub fn parse_vectorized_data(vectorized_data: Vec<f32>, num_chan: usize) -> Vec<Vec<f32>> {
+pub fn parse_vectorized_data(vectorized_data: Vec<f64>, num_chan: usize) -> Vec<Vec<f64>> {
     
-    let mut channel_data: Vec<Vec<f32>> = Vec::with_capacity(num_chan); 
+    let mut channel_data: Vec<Vec<f64>> = Vec::with_capacity(num_chan); 
     
     let data_len = vectorized_data.len();
     let chan_len = data_len / num_chan;
 
     for _ in 0..num_chan {
-        let onechannel: Vec<f32> = Vec::with_capacity(chan_len);
+        let onechannel: Vec<f64> = Vec::with_capacity(chan_len);
         channel_data.push(onechannel);
     }
 
@@ -74,7 +74,7 @@ mod tests {
     #[test]
     fn test_parse_multiplexed_empty() {
         let res = parse_multiplexed_data(vec![], 2);
-        let expected: Vec<Vec<f32>>  = vec![vec![],vec![]];
+        let expected: Vec<Vec<f64>>  = vec![vec![],vec![]];
         assert_eq!(res, expected) 
 
     }
@@ -100,8 +100,8 @@ mod tests {
 
     #[test]
     fn test_parse_vectorized_empty() {
-        let res: Vec<Vec<f32>> = parse_vectorized_data(vec![], 2);
-        let expected: Vec<Vec<f32>>  = vec![vec![],vec![]];
+        let res: Vec<Vec<f64>> = parse_vectorized_data(vec![], 2);
+        let expected: Vec<Vec<f64>>  = vec![vec![],vec![]];
         assert_eq!(res, expected) 
     }
 }

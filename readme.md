@@ -8,7 +8,7 @@ This crate provides a basic reader for BrainVision Recorder Files `(.vhdr/.vmrk/
 
 Does not include full list of options but is extendable.
 
-In order to keep it simple all types (FLOAT32, INT32, INT16) convert to f32.
+In order to keep it simple all types (FLOAT32, INT32, INT16) convert to f64.
 
 Only implements processing for `Timedomain Data`.
 
