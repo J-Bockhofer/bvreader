@@ -7,7 +7,7 @@ pub enum BinaryFormat{
     #[default]
     IEEE_FLOAT_32,
     INT_16,
-    INT_32,
+    UINT_16,
     Unknown,
 }
 
@@ -27,7 +27,7 @@ pub fn parse_binaryformat(textcontent: &str) -> BinaryFormat {
             match m.as_str() { 
                 "IEEE_FLOAT_32" => BinaryFormat::IEEE_FLOAT_32,
                 "INT_16" => BinaryFormat::INT_16,
-                "INT_32" => BinaryFormat::INT_32,
+                "UINT_16" => BinaryFormat::UINT_16,
                 _ => BinaryFormat::Unknown
             }
         })

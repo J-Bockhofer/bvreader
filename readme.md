@@ -8,7 +8,7 @@ This crate provides a basic reader for BrainVision Recorder Files `(.vhdr/.vmrk/
 
 Does not include full list of options but is extendable.
 
-In order to keep it simple all types (FLOAT32, INT32, INT16) convert to f64.
+In order to keep it simple all types (FLOAT32, INT16, UINT16) convert to f32.
 
 Only implements processing for `Timedomain Data`.
 
@@ -39,3 +39,7 @@ let _ = metafile.bv_data.scale_channels(&metafile.bv_header.channel_info).unwrap
 2. .ini based parser instead of regex?
 
 3. more options from [specification](https://www.dpg.unipd.it/sites/dpg.unipd.it/files/Brainvision_Recorder.pdf)
+
+Please report any issues you may encounter.
+
+Suggestions and contributions are also welcome!

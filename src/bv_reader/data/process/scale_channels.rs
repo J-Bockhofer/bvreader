@@ -5,7 +5,7 @@ use crate::bv_reader::header::parser::parse_chan_info::ChannelInfo;
 
 use crate::bv_reader::bv_error::Error;
 
-pub fn scale_channels(data: &mut Vec<Vec<f64>>, info: &Vec<ChannelInfo>) -> Result<(), Error> {
+pub fn scale_channels(data: &mut Vec<Vec<f32>>, info: &Vec<ChannelInfo>) -> Result<(), Error> {
     if data.len() != info.len() {return Err(Error::ChannelDataMismatch(data.len(), info.len()))}; // not the same amount of channels in data and info
     let chan_len = data[0].len();
 
@@ -14,7 +14,7 @@ pub fn scale_channels(data: &mut Vec<Vec<f64>>, info: &Vec<ChannelInfo>) -> Resu
         // iterate through channels
         let resolution = info[i].resolution;
         if resolution.is_none() {continue} // dont need to scale if there is no scale available
-        let resolution = f64::from(resolution.unwrap());
+        let resolution = f32::from(resolution.unwrap());
         for j in 0..chan_len {
             data[i][j] *= resolution; 
         }
@@ -29,7 +29,7 @@ mod tests {
 
     #[test]
     fn test_scale_channels() {
-        let mut in_data: Vec<Vec<f64>> = vec![vec![
+        let mut in_data: Vec<Vec<f32>> = vec![vec![
             110., 20., 110., 20.,
         ],vec![
             80., 30., 80., 30.,
@@ -40,7 +40,7 @@ mod tests {
 
         scale_channels(&mut in_data, &vec![in_info.clone(), in_info]).unwrap();
 
-        let expected: Vec<Vec<f64>> = vec![vec![
+        let expected: Vec<Vec<f32>> = vec![vec![
             55., 10., 55., 10.,
         ],vec![
             40., 15., 40., 15.,

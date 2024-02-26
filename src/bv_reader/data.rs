@@ -3,7 +3,7 @@ pub mod parser;
 #[allow(unused_imports)]
 use parser::{
     read_datfile::get_file_as_byte_vec,
-    parse_bytestring::{parse_bytestring_to_f32, parse_bytestring_to_i16, parse_bytestring_to_i32},
+    parse_bytestring::{parse_bytestring_to_f32, parse_bytestring_to_i16, parse_bytestring_to_u16},
     parse_orientation::{parse_multiplexed_data, parse_vectorized_data}
 };
 
@@ -24,7 +24,7 @@ use crate::bv_reader::bv_error::Error;
 #[derive(Debug, PartialEq)]
 pub struct BVData {
     pub data_path: String,
-    pub data: Vec<Vec<f64>>, // 2D-Vector of channels
+    pub data: Vec<Vec<f32>>, // 2D-Vector of channels
     pub num_chan: usize,
 }
 
@@ -34,8 +34,8 @@ impl BVData {
 
         let raw_data = match binary_format {
             BinaryFormat::IEEE_FLOAT_32 => {parse_bytestring_to_f32(bytestring, use_big_endian)},
-            BinaryFormat::INT_32 => {parse_bytestring_to_i32(bytestring, use_big_endian)},
             BinaryFormat::INT_16 => {parse_bytestring_to_i16(bytestring, use_big_endian)},
+            BinaryFormat::UINT_16 => {parse_bytestring_to_u16(bytestring, use_big_endian)},
             BinaryFormat::Unknown => {return Err(Error::InvalidBinaryFormat);}
         };
         

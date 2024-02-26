@@ -2,13 +2,13 @@
 
 
 
-pub fn parse_bytestring_to_f32(bytestring: Vec<u8>, use_big_endian: bool) -> Vec<f64> {
+pub fn parse_bytestring_to_f32(bytestring: Vec<u8>, use_big_endian: bool) -> Vec<f32> {
 
     let bytestring_len = bytestring.len();
 
     if bytestring_len == 0 {return vec![]}
     const CHUNK_SIZE: usize = 4;
-    let mut result: Vec<f64> = Vec::with_capacity(bytestring_len / CHUNK_SIZE);
+    let mut result: Vec<f32> = Vec::with_capacity(bytestring_len / CHUNK_SIZE);
 
     let mut byte_idx = 0;
     while byte_idx + CHUNK_SIZE - 1 <= bytestring_len - 1 {
@@ -16,7 +16,7 @@ pub fn parse_bytestring_to_f32(bytestring: Vec<u8>, use_big_endian: bool) -> Vec
         let new_head = byte_idx + CHUNK_SIZE;
         let chunk: &[u8] = &bytestring[byte_idx..new_head];
         let num = if use_big_endian {f32::from_be_bytes(format_4byte_arr(chunk))} else {f32::from_le_bytes(format_4byte_arr(chunk))}; 
-        result.push(f64::from(num));
+        result.push(f32::from(num));
 
         byte_idx = new_head;
     }
@@ -24,20 +24,20 @@ pub fn parse_bytestring_to_f32(bytestring: Vec<u8>, use_big_endian: bool) -> Vec
     result
 }
 
-pub fn parse_bytestring_to_i32(bytestring: Vec<u8>, use_big_endian: bool) -> Vec<f64> {
+pub fn parse_bytestring_to_u16(bytestring: Vec<u8>, use_big_endian: bool) -> Vec<f32> {
 
     let bytestring_len = bytestring.len();
     if bytestring_len == 0 {return vec![]}
-    const CHUNK_SIZE: usize = 4;
-    let mut result: Vec<f64> = Vec::with_capacity(bytestring_len / CHUNK_SIZE);
+    const CHUNK_SIZE: usize = 2;
+    let mut result: Vec<f32> = Vec::with_capacity(bytestring_len / CHUNK_SIZE);
     let mut byte_idx = 0;
 
     while byte_idx + CHUNK_SIZE - 1 <= bytestring_len - 1 {
         let new_head = byte_idx + CHUNK_SIZE;
         let chunk: &[u8] = &bytestring[byte_idx..new_head];
 
-        let num = if use_big_endian {i32::from_be_bytes(format_4byte_arr(chunk))} else {i32::from_le_bytes(format_4byte_arr(chunk))};
-        result.push(f64::from(num));
+        let num = if use_big_endian {u16::from_be_bytes(format_2byte_arr(chunk))} else {u16::from_le_bytes(format_2byte_arr(chunk))};
+        result.push(f32::from(num));
 
         byte_idx = new_head;
     }
@@ -45,12 +45,12 @@ pub fn parse_bytestring_to_i32(bytestring: Vec<u8>, use_big_endian: bool) -> Vec
     result
 }
 
-pub fn parse_bytestring_to_i16(bytestring: Vec<u8>, use_big_endian: bool) -> Vec<f64> {
+pub fn parse_bytestring_to_i16(bytestring: Vec<u8>, use_big_endian: bool) -> Vec<f32> {
 
     let bytestring_len = bytestring.len();
     if bytestring_len == 0 {return vec![]}
     const CHUNK_SIZE: usize = 2;
-    let mut result: Vec<f64> = vec![];
+    let mut result: Vec<f32> = vec![];
     let mut byte_idx = 0;
 
     while byte_idx + CHUNK_SIZE - 1 <= bytestring_len - 1 {
@@ -58,7 +58,7 @@ pub fn parse_bytestring_to_i16(bytestring: Vec<u8>, use_big_endian: bool) -> Vec
         let new_head = byte_idx + CHUNK_SIZE;
         let chunk: &[u8] = &bytestring[byte_idx..new_head];
         let num = if use_big_endian {i16::from_be_bytes(format_2byte_arr(chunk))} else {i16::from_le_bytes(format_2byte_arr(chunk))};
-        result.push(f64::from(num));
+        result.push(f32::from(num));
 
         byte_idx = new_head;
     }
@@ -87,9 +87,9 @@ mod tests {
     }
 
     #[test]
-    fn test_parse_bytestring_i32() {
-        let res= parse_bytestring_to_i32(vec![110, 80, 20, 30, 110, 80, 20, 30], false);
-        let expected = vec![504647790., 504647790.];
+    fn test_parse_bytestring_u16() {
+        let res= parse_bytestring_to_u16(vec![110, 80, 20, 30, 110, 80, 20, 30], false);
+        let expected = vec![20590.0, 7700.0, 20590.0, 7700.0];
         assert_eq!(res, expected)
     }
 
@@ -102,8 +102,8 @@ mod tests {
 
     #[test]
     fn test_parse_bytestring_f32_empty() {
-        let res: Vec<f64> = parse_bytestring_to_f32(vec![], false);
-         let expected: Vec<f64> = vec![];
+        let res: Vec<f32> = parse_bytestring_to_f32(vec![], false);
+         let expected: Vec<f32> = vec![];
         assert_eq!(res, expected) 
     }
 
