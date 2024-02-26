@@ -2,6 +2,7 @@ use regex::Regex;
 use std::sync::OnceLock;
 
 pub mod parse_marker_version;
+pub mod parse_timecode;
 
 
 #[derive(Default, Debug, PartialEq, Clone)]
@@ -17,6 +18,7 @@ pub struct MarkerData {
 
 static MARKER_DATA_REGEX: OnceLock<Regex> = OnceLock::new();
 
+/// Returns an empty vector if no markers were present
 pub fn parse_marker_data(textcontent: &str) -> Vec<MarkerData> {
     
     let re = MARKER_DATA_REGEX.get_or_init(|| {
@@ -73,6 +75,7 @@ mod tests {
             marker_length: 1,
             marker_chan: 0,
         };
+        println!("{:?}", output[0]);
         assert_eq!(output[1], expected);
     }
 

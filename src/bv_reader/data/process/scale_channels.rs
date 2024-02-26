@@ -13,7 +13,7 @@ pub fn scale_channels(data: &mut Vec<Vec<f32>>, info: &Vec<ChannelInfo>) -> Resu
         if data[i].len() != chan_len {return Err(Error::ChannelDataMalformed(chan_len, data[i].len()))} // data malformed, unequal sample length per channel
         // iterate through channels
         let resolution = info[i].resolution;
-        if resolution.is_none() {continue} // dont need to scale if there is no scale available
+        if resolution.is_none() {continue} // dont need to scale if there is no scale available, should probably error or log this?
         let resolution = f32::from(resolution.unwrap());
         for j in 0..chan_len {
             data[i][j] *= resolution; 

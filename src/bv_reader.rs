@@ -60,12 +60,12 @@ impl BVFile {
     /// 
     /// - number of channels
     /// 
-    pub fn validate(self) -> Result<Self, Error> {
+    pub fn validate(&self) -> Result<(), Error> {
 
         let valid = validate_num_chan(&self);
         if valid != IsValid::True {return Err(parse_invalid_to_error(&valid));}
         
-        Ok(self)
+        Ok(())
     }
 
 }
@@ -94,7 +94,7 @@ mod tests {
     fn test_validate_valid() {
         let input = "src/bv_reader/data/testfiles/01_header.vhdr";
         let output = BVFile::from_header(input).unwrap().validate();
-        let expected: Result<BVFile, Error> = Ok(BVFile::from_header(input).unwrap());
+        let expected: Result<(), Error> = Ok(());
         //println!("{:?}", output);
         assert_eq!(output, expected);
     }

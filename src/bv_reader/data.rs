@@ -21,7 +21,7 @@ use crate::bv_reader::bv_error::Error;
 
 
 /// Stores the data as vector of channels, each containing the vector of samples
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct BVData {
     pub data_path: String,
     pub data: Vec<Vec<f32>>, // 2D-Vector of channels

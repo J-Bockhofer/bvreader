@@ -5,7 +5,11 @@ use std::fs;
 use crate::bv_reader::bv_error::Error;
 
 pub mod parser;
-use parser::{MarkerData, parse_marker_data, parse_marker_version::parse_marker_version};
+use parser::{
+    MarkerData, 
+    parse_marker_data, 
+    parse_marker_version::parse_marker_version, 
+    parse_timecode::{BVTime, parse_timecode}};
 
 use crate::bv_reader::header::parser::{
     parse_header_encoding::{parse_header_encoding, HeaderEncoding},
@@ -21,6 +25,7 @@ pub struct BVMarker {
     pub data_file: String,
 
     pub marker_data: Vec<MarkerData>,
+    pub start_time: Option<BVTime>,
 
 }
 
@@ -38,6 +43,7 @@ impl BVMarker {
             header_encoding: parse_header_encoding(&textcontent),
             data_file: parse_datafilepath(&textcontent).unwrap(),
             marker_data: parse_marker_data(&textcontent),
+            start_time: parse_timecode(&textcontent),
         })
     }
 }
