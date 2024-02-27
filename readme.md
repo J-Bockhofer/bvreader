@@ -35,7 +35,7 @@ metafile.bv_data.scale_channels(&metafile.bv_header.channel_info).unwrap();
 
 ```
 
-## Todos
+## Future ideas
 
 1. .ini based parser instead of regex?
 

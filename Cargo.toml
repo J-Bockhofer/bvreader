@@ -16,11 +16,6 @@ criterion = "0.5.1"
 regex = "1.10.2"
 thiserror = "1.0.51"
 
-
-[profile.release]
-debug = true
-
-
 [[bench]]
 name = "parser_benchmark"
 harness = false
