@@ -23,6 +23,13 @@ pub enum Error {
     #[error("Invalid data orientation")]
     InvalidDataOrientation,
 
+    // Binary parser
+    #[error("Invalid binary dimensions for binary with format {0}. Parser stopped at byte {1} while binary contains {2} bytes")]
+    BinaryParserError(String, usize, usize),
+    #[error("Invalid binary data orientation for orientation {0}. Parser expected {1} values and got {2} values")]
+    BinaryOrientationError(String, usize, usize),
+
+
     // Channel scaling
     #[error("Mismatching channel data dimensions. Data has length: {0} while resolution info has length: {1}")]
     ChannelDataMismatch(usize, usize),

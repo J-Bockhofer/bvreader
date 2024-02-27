@@ -33,17 +33,15 @@ impl BVData {
         let bytestring = get_file_as_byte_vec(datapath)?;
 
         let raw_data = match binary_format {
-            BinaryFormat::IEEE_FLOAT_32 => {parse_bytestring_to_f32(bytestring, use_big_endian)},
-            BinaryFormat::INT_16 => {parse_bytestring_to_i16(bytestring, use_big_endian)},
-            BinaryFormat::UINT_16 => {parse_bytestring_to_u16(bytestring, use_big_endian)},
+            BinaryFormat::IEEE_FLOAT_32 => {parse_bytestring_to_f32(bytestring, use_big_endian)?},
+            BinaryFormat::INT_16 => {parse_bytestring_to_i16(bytestring, use_big_endian)?},
+            BinaryFormat::UINT_16 => {parse_bytestring_to_u16(bytestring, use_big_endian)?},
             BinaryFormat::Unknown => {return Err(Error::InvalidBinaryFormat);}
         };
-        
-        if raw_data.len() == 0 {return Err(Error::EmptyBinary)}
 
         let parsed_data = match orientation {
-            DataOrientation::MULTIPLEXED => {parse_multiplexed_data(raw_data, num_channels)},
-            DataOrientation::VECTORIZED => {parse_vectorized_data(raw_data, num_channels)},
+            DataOrientation::MULTIPLEXED => {parse_multiplexed_data(raw_data, num_channels)?},
+            DataOrientation::VECTORIZED => {parse_vectorized_data(raw_data, num_channels)?},
             DataOrientation::Unknown => {return Err(Error::InvalidDataOrientation);}
         };
         let num_channels = parsed_data.len();
